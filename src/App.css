@@ -1,33 +1,149 @@
-.App {
+
+body
+{
   text-align: center;
+
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+button
+{
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #3f51b5;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size:90%;
+  padding: 5px;
+  width: 50%;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  
+  box-shadow: 3px 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+ #send, #sendImage 
+ {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #3f51b5;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 100%;
+  padding: 5px;
+  width: 7%;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 01px;
+  
+  box-shadow: 3px 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ }
+#box
+{ 
+  width: 38%;
+  height:100%;
+  border:1px solid white;
+  margin-left: 31%;
+  margin-top: 10%;
+  margin-right: auto;
+  box-shadow:  0 0 10px  rgba(0,0,0,0.6);
+      -moz-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
+      -webkit-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
+      -o-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
+  border-radius: 10px;
+  text-align:center;
+  display: block;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+#contentwrap
+{
+  display: none;
+  margin-top: 2%;
+}
+
+#header
+{
+  width:60.1%;
+  height:70px;
+  background-color: #3f51b5;
+  margin-left: 20%;
+  border-top-right-radius: 40px;
+  border-top-left-radius: 40px;
+  box-shadow: 3px 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#output
+{
+  
+  height:550px ;
+  width: 60%;
+  background-color: white;
+  margin-left: 20%;
+
+  
+  border: 1px solid #A9A9A9;
+  box-shadow: 3px 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  overflow-x: hidden;
+  overflow-y: auto;
+  
+   
+
+}
+
+
+input
+{
+  margin-left:1%;
+  display: inline-block;
+  width:60%;
+  height: 50px;
+  
+}
+
+button
+{
+
+  height:61px;
+  margin-left:-5%;
+}
+
+#welcome
+{
   color: white;
+  font-size: 30px;
+  font-family: 'Inconsolata', monospace;
+}
+#welcome-text
+{
+  color:#3f51b5;
+  font-family: 'Coiny', cursive;
+  font-size: 40px;
+  padding-top: 100px;
+}
+#username
+{
+  font-family: 'Coiny', cursive;
+  font-size: 20px;
+  color: grey;
 }
 
-.App-link {
-  color: #61dafb;
+#text-line {
+    background-color: white;
+    color: Black;
+    outline: none;
+    outline-style: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid #C0C0C0 1px;
+    padding: 3px 10px;
+font-family:'Inconsolata', monospace;
+font-size:15px;
+width: 250px;
+text-align: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#InputMessage{
+  width:620px;
 }
