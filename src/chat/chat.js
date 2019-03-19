@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 
 class Chat extends Component{
+	constructor(props){
+        super(props);
+
+        this.state = {
+        	user:this.props.user,
+            username: '',
+            message: '',
+            messages: []
+        };}
+
 render(){
+
+
 	return(
 
 		<div>
 		  <div id ="content-wrap">
 		  <span id="block"> 
-				<div id="header" > <span id="welcome"> Welcome , You are online now </span> </div>
+				<div id="header" > <span id="welcome"> Welcome {this.state.user} , You are online now </span> </div>
 				<div id="output"> </div>
 			 </span>
 			 <form id='message'>

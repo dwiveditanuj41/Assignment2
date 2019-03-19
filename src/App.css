@@ -56,6 +56,23 @@ button
   display: block;
 }
 
+#link
+{ 
+  width: 38%;
+  height:100%;
+  border:1px solid white;
+  margin-left: 31%;
+  margin-top: 0.5%;
+  margin-right: auto;
+  box-shadow:  0 0 10px  rgba(0,0,0,0.6);
+      -moz-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
+      -webkit-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
+      -o-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
+  border-radius: 10px;
+  text-align:center;
+  display: block;
+}
+
 #contentwrap
 {
   display: none;

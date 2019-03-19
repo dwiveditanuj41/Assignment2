@@ -3,12 +3,13 @@ import './App.css';
 import Home from './home page/home.js'
 import Chat from './chat/chat.js'
 import firebase,{provider,db} from './config/fbconfig.js'
-import {BrowserRouter , Route , link} from 'react-router-dom'
+import {BrowserRouter , Route , link , Redirect,Switch} from 'react-router-dom'
 
 class App extends Component {
   state ={
     user:'',
-    isSignedin:false
+    isSignedin:false,
+    users:[]
   }
   
   login = (e) => {
@@ -17,14 +18,36 @@ class App extends Component {
   // This gives you a Google Access Token. You can use it to access the Google API.
   var token = result.credential.accessToken;
   // The signed-in user info.
-  var user = result.user;
+  var user = result.user.displayName;
 
+  let users=[]
+
+db.collection("Authentication").add({
+    user:user
+}).then(
+
+)
+
+db.collection("Authentication").get().then((querySnapshot) => {
+    querySnapshot.docs.forEach((doc) => {
+        users.push(doc.data().user);
 this.setState({
   user:user,
-  isSignedin:true
+  isSignedin:true,
+  users:users
 })
+        
+    });
+});
+
+
+
+
+
+
 
 });
+
 }
 
 logout=(e)=>{
@@ -33,13 +56,16 @@ logout=(e)=>{
 
      this.setState({
        user:'',
-       isSignedin:false
+       isSignedin:false,
+       users:[]
 })
   
 });
 }
   
   render() {
+   
+
     if(!this.state.isSignedin)
     {
     return (
@@ -49,21 +75,35 @@ logout=(e)=>{
        <span id="welcome-text"> WELCOME </span> <br /> <br />
         <br /> <br />
         <form id="get-user-name">
-      <button onClick= {this.login} > Log in with Google </button> <br />
-      <button onClick= {this.toHome} > Sign Up with Google </button> <br /> <br /> <br /> <br />
+      <button onClick= {this.login.bind(this)} > Log in with Google </button> <br /><br /><br /><br />
+      
         </form>
         </div> 
         </div>
     );}
 
-    else{
+    else{console.log(this.state.users)
       return(
       <div>
-         <Home user={this.state.user}/>
-        </div> 
+      <BrowserRouter>
+         <Route to='/home' exact strict render={()=>{return(
+          <div>
+          <Home user={this.state.user} users={this.state.users} />
+
+
+          </div>
+
+         )}}/>
+          </BrowserRouter>  
+        </div>
+       
       )
     }
+
+  
   }
+  
+
 }
 
 export default App;

@@ -12,9 +12,11 @@
     messagingSenderId: "1078518874504"
   };
   firebase.initializeApp(config);
+  const database=firebase.firestore();
+  database.settings({timestampsInSnapshots:true});
   
 
 export default firebase;
 export const provider = new firebase.auth.GoogleAuthProvider();
 export const firebaseAuth = firebase.auth;
-export const db=firebase.firestore
+export  const db=firebase.firestore();
