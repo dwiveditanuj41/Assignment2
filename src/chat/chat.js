@@ -5,10 +5,11 @@ class Chat extends Component{
         super(props);
 
         this.state = {
-        	user:this.props.user,
+        	user:this.props.currentUser,
             username: '',
             message: '',
-            messages: []
+            messages: [],
+            fromUserId:this.props.fromUserId
         };}
 
 render(){

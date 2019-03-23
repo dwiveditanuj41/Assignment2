@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import {BrowserRouter , Route , Link , Redirect,Switch} from 'react-router-dom'
 import Chat from '../chat/chat.js';
 
+var usersarray=new Array(50)
+for(var i=0;i<50;i++)
+{
+	usersarray[i]=new Array(50)
+}
+
 class Home extends Component{
 	onclick=()=>{
 		document.getElementById("box").style.display='none'
@@ -11,13 +17,30 @@ class Home extends Component{
 	}
 	state={
 			user:this.props.user,
-			users:this.props.users
+			usersobject:this.props.usersobject,
+			fromUserId:this.props.fromUserId
+		
+		}
+		
+makeArray=()=>{
+		for(var i=0;i<this.state.usersobject.user.length;i++)
+		{
+			usersarray[i][0]=this.state.usersobject.key[i]
 		}
 
+		for(var i=0;i<this.state.usersobject.user.length;i++)
+		{
+			usersarray[i][1]=this.state.usersobject.user[i]
+		}
+	}		
+
+
+
 	
-	render(){
-		
-		
+render(){
+		 
+		this.makeArray()
+		 console.log(this.state.fromUserId)
 		return(
 			<div>
               <div id="box" >
@@ -26,28 +49,36 @@ class Home extends Component{
                 </div>
                  <BrowserRouter>
                <div id="users">
-                                    {this.state.users.map(user => {
+                                   {usersarray.map(item => { var i=0;
+                                   	if(item[i])
+                                   		{
                                         return (
                                            <div>
                                           
 
-                                            <Link to ={'/' + user} id="link" onClick={this.onclick}>{user}</Link>
+                                            <Link to ={'/' + this.state.fromUserId +'/'+ item[0]} id="link" onClick={this.onclick}>{item[1]}</Link>
                                 
                                             </div>
                                         )
+                                        i=i+2;
+                                       }
                                     })}
                                 
                    </div>
 
                    <div id="chat">
-                                    {this.state.users.map(user => {
+                                    {usersarray.map(item => {var j=0;
+                                    	if(item[j])
+                                    		{
                                         return (
                                           <div>
 
-                                              <Route exact={true} path={'/' + user} render={()=><div><Chat user={user}/></div>}/>
+                                              <Route exact={true} path={'/' + this.state.fromUserId + '/' + item[0]} render={()=><div><Chat fromUserId={this.state.fromUserId} currentUser={this.state.usersobject.currentUser} user={item[1]}/></div>}/>
    
                                            </div>
                                         )
+                                        j=j+2;
+                                       }
                                     })}
 
                                
@@ -57,6 +88,7 @@ class Home extends Component{
 
             </div>
 			)}
+			
 		
 
 }

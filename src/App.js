@@ -3,13 +3,27 @@ import './App.css';
 import Home from './home page/home.js'
 import Chat from './chat/chat.js'
 import firebase,{provider,db} from './config/fbconfig.js'
-import {BrowserRouter , Route , link , Redirect,Switch} from 'react-router-dom'
-
+import {BrowserRouter , Route , Link , Redirect,Switch} from 'react-router-dom'
+var user
+var users
+var key
+var id
 class App extends Component {
   state ={
     user:'',
+    id:'',
     isSignedin:false,
-    users:[]
+    usersobject:{
+      currentUser:'',
+            user:[],
+            key:[]
+
+       }
+
+  }
+  GoTo=()=>{
+    document.getElementById("GoTo").style.display='none'
+
   }
   
   login = (e) => {
@@ -18,11 +32,12 @@ class App extends Component {
   // This gives you a Google Access Token. You can use it to access the Google API.
   var token = result.credential.accessToken;
   // The signed-in user info.
-  var user = result.user.displayName;
+  user = result.user.displayName;
+    id=result.user.uid
+    users=[]
+    key=[]
 
-  let users=[]
-
-db.collection("Authentication").add({
+db.collection("Authentication").doc(result.user.uid).set({
     user:user
 }).then(
 
@@ -31,24 +46,33 @@ db.collection("Authentication").add({
 db.collection("Authentication").get().then((querySnapshot) => {
     querySnapshot.docs.forEach((doc) => {
         users.push(doc.data().user);
-this.setState({
-  user:user,
-  isSignedin:true,
-  users:users
-})
-        
+        key.push(doc.id);
+
+ 
+
+
     });
+    this.setState({
+  user:user,
+  id:id,
+  isSignedin:true,
+  usersobject:{
+       currentUser:user,
+       user:users,
+       key:key
+  }
+})
 });
 
 
 
 
-
-
-
 });
+
 
 }
+      
+
 
 logout=(e)=>{
   e.preventDefault();
@@ -57,14 +81,17 @@ logout=(e)=>{
      this.setState({
        user:'',
        isSignedin:false,
-       users:[]
+       usersobject:{
+            user:[],
+            key:[]
+       }
 })
   
 });
 }
   
   render() {
-   
+   console.log(this.state.id)
 
     if(!this.state.isSignedin)
     {
@@ -82,13 +109,18 @@ logout=(e)=>{
         </div>
     );}
 
-    else{console.log(this.state.users)
+    else{
       return(
       <div>
       <BrowserRouter>
-         <Route to='/home' exact strict render={()=>{return(
+         <Route to={'/'} exact strict render={()=>{return(
           <div>
-          <Home user={this.state.user} users={this.state.users} />
+          <div id="GoTo">
+          <Link to={'/'+id} onClick={this.GoTo} id="welcome-text">Go To My ChatRoom</Link>
+          </div>
+          <Route exact={true} path={'/' + id} render={()=><div> <Home fromUserId={this.state.id} usersobject={this.state.usersobject}/></div>}/>
+         
+
 
 
           </div>
