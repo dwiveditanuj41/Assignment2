@@ -122,7 +122,8 @@ class Chat extends Component{
 
 			firebase.firestore().collection("Message").doc(this.state.recive).collection("To").doc(firebase.auth().currentUser.uid).collection("Sent").doc().set({
 				message: this.state.InputMessage,
-				user: firebase.auth().currentUser.displayName  //chamge uid into anything you want to display
+				user: firebase.auth().currentUser.displayName,  //chamge uid into anything you want to display
+				time: new Date()
 			});	
          
 
