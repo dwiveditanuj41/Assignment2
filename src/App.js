@@ -8,10 +8,12 @@ var user
 var users
 var key
 var id
+
 class App extends Component {
   state ={
     user:'',
     id:'',
+   
     isSignedin:false,
     usersobject:{
       currentUser:'',
@@ -23,6 +25,7 @@ class App extends Component {
   }
   GoTo=()=>{
     document.getElementById("GoTo").style.display='none'
+    
 
   }
   
@@ -118,7 +121,7 @@ logout=(e)=>{
           <div id="GoTo">
           <Link to={'/'+id} onClick={this.GoTo} id="welcome-text">Go To My ChatRoom</Link>
           </div>
-          <Route exact={true} path={'/' + id} render={()=><div> <Home fromUserId={this.state.id} usersobject={this.state.usersobject}/></div>}/>
+          <Route exact={true} path={'/' + id} render={()=><div> <Home GoTo={this.state.GoTo} fromUserId={this.state.id} usersobject={this.state.usersobject}/></div>}/>
          
 
 

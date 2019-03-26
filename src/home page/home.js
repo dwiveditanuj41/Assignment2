@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import {BrowserRouter , Route , Link , Redirect,Switch} from 'react-router-dom'
 import Chat from '../chat/chat.js';
-
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/storage' ;
+import 'firebase/auth' ;
+import App from '../App.js'
 var usersarray=new Array(50)
 for(var i=0;i<50;i++)
 {
@@ -10,7 +14,7 @@ for(var i=0;i<50;i++)
 
 class Home extends Component{
 	onclick=()=>{
-		document.getElementById("box").style.display='none'
+		document.getElementById("box2").style.display='none'
 		document.getElementById("link").style.display='none'
         document.getElementById("users").style.display='none'
         document.getElementById("chat").style.display='block'
@@ -18,7 +22,9 @@ class Home extends Component{
 	state={
 			user:this.props.user,
 			usersobject:this.props.usersobject,
-			fromUserId:this.props.fromUserId
+			fromUserId:this.props.fromUserId,
+			GoTo:this.props.GoTo
+			
 		
 		}
 		
@@ -41,16 +47,17 @@ render(){
 		 
 		this.makeArray()
 		 console.log(this.state.fromUserId)
-		return(
-			<div>
-              <div id="box" >
-                <span id="welcome-text"> Online Users</span> 
+		 if(this.state.GoTo)
+		{return(
+			<div id="xxx">
+              <div id="box2" >
+                <span id="welcome-text"> Other Logged In Users</span> 
                   <br /> <br />
                 </div>
                  <BrowserRouter>
                <div id="users">
                                    {usersarray.map(item => { var i=0;
-                                   	if(item[i])
+                                   	if(item[i] && item[0]!=firebase.auth().currentUser.uid)
                                    		{
                                         return (
                                            <div>
@@ -70,11 +77,13 @@ render(){
                                     {usersarray.map(item => {var j=0;
                                     	if(item[j])
                                     		{
+										
                                         return (
                                           <div>
+											
 
-                                              <Route exact={true} path={'/' + this.state.fromUserId + '/' + item[0]} render={()=><div><Chat fromUserId={this.state.fromUserId} currentUser={this.state.usersobject.currentUser} user={item[1]}/></div>}/>
-   
+                                              <Route exact={true} path={'/' + this.state.fromUserId + '/' + item[0]} render={()=><div><Chat fromUserId={this.state.fromUserId} currentUser={this.state.usersobject.currentUser} recive={item[0]} user={item[1]} /></div>}/>
+											
                                            </div>
                                         )
                                         j=j+2;
@@ -88,6 +97,9 @@ render(){
 
             </div>
 			)}
+                                        else{
+                                        	return(<BrowserRouter><App /><Redirect to="/"/>{this.setState({GoTo:true})}</BrowserRouter>)
+                                        }}
 			
 		
 
